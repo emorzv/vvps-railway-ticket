@@ -1,0 +1,23 @@
+- на стартъп питаме - user or admin
+- ако съм потребител, ще въвеждам мойто ЕГН
+- ако съм админ, виждам всичко
+
+[X] one week expiration check
+[X] create reservation
+[X] update reservation
+[X] delete reservation
+[X] option to see previous reservations
+[X] unique IDs for the reservations
+[ ] handle edge cases on the input side of things
+
+
+UI
+---------------------------------------
+[X] Prompt user or admin
+[X] Prompt EGN
+[ ] List options
+        Create reservation
+        Update reservation
+        Delete reservation
+        See previous reservations
+        Buy a new ticket
