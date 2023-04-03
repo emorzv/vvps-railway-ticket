@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class RailwayTicketerTest {
+class RailwayTicketerTest {
     @Test
     @DisplayName(
             "The calculated discount price should equal to 50, " +
