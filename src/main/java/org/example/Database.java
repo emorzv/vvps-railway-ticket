@@ -29,7 +29,7 @@ public class Database {
             System.out.println("Database::writeToFile: " + this.gson.toJson(reservations));
             out.write(this.gson.toJson(reservations));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class Database {
             reader = new BufferedReader(new FileReader("reservations.json"));
         } catch (FileNotFoundException e) {
             System.out.println("Database::FileNotFound.");
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         Type listOfMyClassObject = new TypeToken<ArrayList<Reservation>>() {}.getType();
