@@ -1,7 +1,5 @@
 package org.example;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class RailwayTicketer {

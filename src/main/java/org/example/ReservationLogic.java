@@ -6,11 +6,10 @@ import java.util.List;
 
 public class ReservationLogic {
     private Database database;
-    // private List<Reservation> reservations;
+    private static final String ERROR_MESSAGE = "No reservations on this egn!";
 
     public ReservationLogic(Database database) {
         this.database = database;
-        // this.reservations = database.getReservations();
     }
 
     public void createReservation(Reservation reservation) {
@@ -20,7 +19,7 @@ public class ReservationLogic {
         reservations.add(reservation);
     }
 
-    public void viewPreviousReservations(String EGN) {
+    public void viewPreviousReservations(String egn) {
         List<Reservation> reservations = database.getReservations();
         List<Reservation> reservationsToBeDeleted = new ArrayList<>();
         boolean isEmpty = true;
@@ -35,25 +34,25 @@ public class ReservationLogic {
 
         for (Reservation res :
                 reservations) {
-            if (res.getPersonEGN().equals(EGN)) {
+            if (res.getPersonEGN().equals(egn)) {
                 res.customToString();
                 isEmpty = false;
             }
         }
 
         if (isEmpty) {
-            System.out.println("No reservations on this EGN!");
+            System.out.println(ERROR_MESSAGE);
         }
     }
 
-    public void deleteReservationByID(String EGN, int reservationID) {
+    public void deleteReservationByID(String egn, int reservationID) {
         List<Reservation> reservations = database.getReservations();
         List<Reservation> reservationsToBeDeleted = new ArrayList<>();
         boolean isEmpty = true;
 
         for (Reservation res :
                 reservations) {
-            if (res.getPersonEGN().equals(EGN) && res.getReservationID() == reservationID) {
+            if (res.getPersonEGN().equals(egn) && res.getReservationID() == reservationID) {
                 reservationsToBeDeleted.add(res);
                 isEmpty = false;
             }
@@ -61,24 +60,24 @@ public class ReservationLogic {
         reservations.removeAll(reservationsToBeDeleted);
 
         if (isEmpty) {
-            System.out.println("No reservations on this EGN!");
+            System.out.println(ERROR_MESSAGE);
         }
     }
 
-    public void updateReservationByID(String EGN, int reservationID, CardType newCardType) {
+    public void updateReservationByID(String egn, int reservationID, CardType newCardType) {
         List<Reservation> reservations = database.getReservations();
         boolean isEmpty = true;
 
         for (Reservation res :
                 reservations) {
-            if (res.getPersonEGN().equals(EGN) && res.getReservationID() == reservationID) {
+            if (res.getPersonEGN().equals(egn) && res.getReservationID() == reservationID) {
                 res.setDiscountType(newCardType);
                 isEmpty = false;
             }
         }
 
         if (isEmpty) {
-            System.out.println("No reservations on this EGN!");
+            System.out.println(ERROR_MESSAGE);
         }
     }
 

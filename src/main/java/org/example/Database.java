@@ -59,7 +59,7 @@ public class Database {
         }
 
         // Get last inserted ID
-        if (this.reservations.size() > 0) {
+        if (!this.reservations.isEmpty()) {
             this.lastReservationID = this.reservations.get(this.reservations.size() - 1).getReservationID();
         } else {
             this.lastReservationID = 0;

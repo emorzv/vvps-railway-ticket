@@ -27,12 +27,12 @@ public class UserInterface {
             System.out.println("Welcome User!");
             System.out.println("-------------");
 
-            // Prompt EGN
-            System.out.print("Enter your EGN: ");
-            String EGN = scanner.nextLine();
+            // Prompt egn
+            System.out.print("Enter your egn: ");
+            String egn = scanner.nextLine();
 
             // Main lifecycle
-            userOptions(EGN, reservationLogic, railwayTicketer, database);
+            userOptions(egn, reservationLogic, railwayTicketer, database);
         } else if (RoleType.ADMIN == role) {
             // TODO:
             adminOptions();
@@ -45,7 +45,7 @@ public class UserInterface {
     }
 
     private static void userOptions(
-            String EGN,
+            String egn,
             ReservationLogic reservationLogic,
             RailwayTicketer railwayTicketer,
             Database database) {
@@ -85,7 +85,7 @@ public class UserInterface {
                                 railwayTicketer.findAvailableTrainByPriceAndRoute());
                     }
 
-                    Reservation newReservation = new Reservation(name, EGN, cardType, ticketCount);
+                    Reservation newReservation = new Reservation(name, egn, cardType, ticketCount);
                     newReservation.setTicketsPrices(ticketsPrices); // should not be here
                     reservationLogic.createReservation(newReservation);
                     break;
@@ -98,15 +98,15 @@ public class UserInterface {
                     System.out.println("2. Family card");
                     CardType newCardType = CardType.values()[Integer.parseInt(scanner.nextLine())];
                     railwayTicketer.setAvailableCard(newCardType); // should not be here
-                    reservationLogic.updateReservationByID(EGN, reservationIDToBeUpdated, newCardType);
+                    reservationLogic.updateReservationByID(egn, reservationIDToBeUpdated, newCardType);
                     break;
                 case "3":
                     System.out.print("Input reservation's ID to be deleted: ");
                     int reservationIDToBeDeleted = Integer.parseInt(scanner.nextLine());
-                    reservationLogic.deleteReservationByID(EGN, reservationIDToBeDeleted);
+                    reservationLogic.deleteReservationByID(egn, reservationIDToBeDeleted);
                     break;
                 case "4":
-                    reservationLogic.viewPreviousReservations(EGN);
+                    reservationLogic.viewPreviousReservations(egn);
                     break;
                 case "5":
                     running = false;
