@@ -11,10 +11,13 @@ import java.util.List;
 public class Database {
     private final Gson gson;
     private List<Reservation> reservations;
+    private List<User> users;
     private int lastReservationID;
+    private int lastUserId;
     public Database() {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.reservations = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public List<Reservation> getReservations() {
@@ -63,6 +66,56 @@ public class Database {
             this.lastReservationID = this.reservations.get(this.reservations.size() - 1).getReservationID();
         } else {
             this.lastReservationID = 0;
+        }
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public int getLastUserId() {
+        return lastUserId;
+    }
+
+    public void readUsersFromFileOnStartUp() {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("users.json"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Database::FileNotFound.");
+            System.out.println(e.getMessage());
+        }
+
+        Type listOfMyClassObject = new TypeToken<ArrayList<User>>() {}.getType();
+
+        if (reader != null) {
+            try {
+                this.users = this.gson.fromJson(reader, listOfMyClassObject);
+                if (null == this.users) {
+                    this.users = new ArrayList<>();
+                }
+            } catch (Exception e) {
+                System.out.println("Database::readFromFileOnStartUp: File empty");
+                this.users = new ArrayList<>();
+            }
+        } else {
+            System.out.println("Database::readUsersFromFileOnStartUp: Error creating BufferedReader");
+        }
+
+        // Get last inserted ID
+        if (!this.users.isEmpty()) {
+            this.lastUserId = this.users.get(this.users.size() - 1).getUserId();
+        } else {
+            this.lastUserId = 0;
+        }
+    }
+
+    public void writeUsersToFile(List<User> users) {
+        try (PrintWriter out = new PrintWriter(new FileWriter("users.json"))) {
+            System.out.println("Database::writeToFile: " + this.gson.toJson(users));
+            out.write(this.gson.toJson(users));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

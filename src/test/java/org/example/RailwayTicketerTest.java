@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.CardType;
-import org.example.RailwayTicketer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

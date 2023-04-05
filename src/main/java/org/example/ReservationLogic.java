@@ -19,7 +19,7 @@ public class ReservationLogic {
         reservations.add(reservation);
     }
 
-    public void viewPreviousReservations(String egn) {
+    /*public void viewPreviousReservations(String egn) {
         List<Reservation> reservations = database.getReservations();
         List<Reservation> reservationsToBeDeleted = new ArrayList<>();
         boolean isEmpty = true;
@@ -43,9 +43,9 @@ public class ReservationLogic {
         if (isEmpty) {
             System.out.println(ERROR_MESSAGE);
         }
-    }
+    }*/
 
-    public void deleteReservationByID(String egn, int reservationID) {
+    /*public void deleteReservationByID(String egn, int reservationID) {
         List<Reservation> reservations = database.getReservations();
         List<Reservation> reservationsToBeDeleted = new ArrayList<>();
         boolean isEmpty = true;
@@ -62,9 +62,9 @@ public class ReservationLogic {
         if (isEmpty) {
             System.out.println(ERROR_MESSAGE);
         }
-    }
+    }*/
 
-    public void updateReservationByID(String egn, int reservationID, CardType newCardType) {
+    /*public void updateReservationByID(String egn, int reservationID, CardType newCardType) {
         List<Reservation> reservations = database.getReservations();
         boolean isEmpty = true;
 
@@ -79,6 +79,6 @@ public class ReservationLogic {
         if (isEmpty) {
             System.out.println(ERROR_MESSAGE);
         }
-    }
+    }*/
 
 }

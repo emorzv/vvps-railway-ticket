@@ -3,8 +3,6 @@ package org.example;
 
 public class Reservation {
     private int reservationID;
-    private String personName;
-    private String personEGN;
     private CardType discountType;
     private int ticketCount;
     private double[] ticketsPrices;
@@ -13,9 +11,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String personName, String personEGN, CardType discountType, int ticketCount) {
-        this.personName = personName;
-        this.personEGN = personEGN;
+    public Reservation(CardType discountType, int ticketCount) {
         this.discountType = discountType;
         this.ticketCount = ticketCount;
         this.ticketsPrices = new double[ticketCount];
@@ -35,22 +31,6 @@ public class Reservation {
 
     public void setReservationID(int reservationID) {
         this.reservationID = reservationID;
-    }
-
-    public String getPersonName() {
-        return personName;
-    }
-
-    public void setPersonName(String personName) {
-        this.personName = personName;
-    }
-
-    public String getPersonEGN() {
-        return personEGN;
-    }
-
-    public void setPersonEGN(String getPersonLastName) {
-        this.personEGN = getPersonLastName;
     }
 
     public CardType getDiscountType() {
@@ -79,8 +59,6 @@ public class Reservation {
 
     public void customToString() {
         System.out.println("Reservation ID: " + this.getReservationID());
-        System.out.println("Person's EGN: " + this.getPersonEGN());
-        System.out.println("Person's name: " + this.getPersonName());
         System.out.println("Discount type: " + this.getDiscountType());
         System.out.println("Number of reserved tickets: " + this.getTicketCount());
         System.out.println("------------------------------------------------------");

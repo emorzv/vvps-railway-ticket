@@ -7,8 +7,10 @@ public class UserInterface {
         // SetUp
         Database database = new Database();
         ReservationLogic reservationLogic = new ReservationLogic(database);
+        UserLogic userLogic = new UserLogic(database);
         RailwayTicketer railwayTicketer = new RailwayTicketer();
         database.readFromFileOnStartUp();
+        database.readUsersFromFileOnStartUp();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -32,21 +34,16 @@ public class UserInterface {
             String egn = scanner.nextLine();
 
             // Main lifecycle
-            userOptions(egn, reservationLogic, railwayTicketer, database);
+            userOptions(egn, reservationLogic, userLogic, railwayTicketer, database);
         } else if (RoleType.ADMIN == role) {
-            // TODO:
-            adminOptions();
+            System.out.println("Welcome Admin!");
+            System.out.println("-------------");
+            adminOptions(userLogic, railwayTicketer, database);
         }
     }
 
-    // TODO:
-    private static void adminOptions() {
-
-    }
-
-    private static void userOptions(
-            String egn,
-            ReservationLogic reservationLogic,
+    private static void adminOptions(
+            UserLogic userLogic,
             RailwayTicketer railwayTicketer,
             Database database) {
         boolean running = true;
@@ -54,19 +51,68 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
 
         while (running) {
-            printMenu();
+            printAdminMenu();
             userInput = scanner.nextLine();
 
             switch (userInput) {
                 case "1":
-                    System.out.print("Person's name: ");
-                    String name = scanner.nextLine();
+                    // Create a user
+                    User user = createUserByAdmin();
+                    // Add to list of users
+                    userLogic.createUser(user);
+                    break;
+                case "2":
+                    // Update the card-type of a given user
+                    System.out.print("Enter a user id: ");
+                    int userId = Integer.parseInt(scanner.nextLine());
 
-                    System.out.println("Person's discount type: ");
+                    System.out.println("New card type:");
                     System.out.println("0. No card");
                     System.out.println("1. Older than sixty card");
                     System.out.println("2. Family card");
-                    CardType cardType = CardType.values()[Integer.parseInt(scanner.nextLine())];
+                    CardType newCardType = CardType.values()[Integer.parseInt(scanner.nextLine())];
+
+                    userLogic.updateUserCardType(userId, newCardType);
+                    break;
+                case "3":
+                    // View all users
+                    userLogic.viewAllUsers();
+                    break;
+                case "4":
+                    database.writeUsersToFile(database.getUsers());
+                    running = false;
+                    break;
+                default:
+                    System.out.println("ERROR choosing an option");
+                    break;
+            }
+        }
+    }
+
+    private static void userOptions(
+            String egn,
+            ReservationLogic reservationLogic,
+            UserLogic userLogic,
+            RailwayTicketer railwayTicketer,
+            Database database) {
+        boolean running = true;
+        String userInput;
+        Scanner scanner = new Scanner(System.in);
+        User currentUser = userLogic.getSingleUser(egn);
+
+        if (null == currentUser) {
+            System.out.println("No user with the given egn!");
+            database.writeUsersToFile(database.getUsers());
+            return;
+        }
+
+        while (running) {
+            printUserMenu();
+            userInput = scanner.nextLine();
+
+            switch (userInput) {
+                case "1":
+                    CardType cardType = currentUser.getCard();
                     railwayTicketer.setAvailableCard(cardType);
 
                     System.out.print("Traveling with a child (true/false): ");
@@ -84,13 +130,12 @@ public class UserInterface {
                         ticketsPrices[i] = railwayTicketer.calculateTwoWayTickets(
                                 railwayTicketer.findAvailableTrainByPriceAndRoute());
                     }
-
-                    Reservation newReservation = new Reservation(name, egn, cardType, ticketCount);
+                    Reservation newReservation = new Reservation(cardType, ticketCount);
                     newReservation.setTicketsPrices(ticketsPrices); // should not be here
-                    reservationLogic.createReservation(newReservation);
+                    userLogic.addReservationToUser(currentUser.getEgn(), newReservation);
                     break;
                 case "2":
-                    System.out.print("Input reservation's ID to be updated: ");
+                    /*System.out.print("Input reservation's ID to be updated: ");
                     int reservationIDToBeUpdated = Integer.parseInt(scanner.nextLine());
                     System.out.println("Input new discount type: ");
                     System.out.println("0. No card");
@@ -98,20 +143,21 @@ public class UserInterface {
                     System.out.println("2. Family card");
                     CardType newCardType = CardType.values()[Integer.parseInt(scanner.nextLine())];
                     railwayTicketer.setAvailableCard(newCardType); // should not be here
-                    reservationLogic.updateReservationByID(egn, reservationIDToBeUpdated, newCardType);
+                    reservationLogic.updateReservationByID(egn, reservationIDToBeUpdated, newCardType);*/
                     break;
                 case "3":
-                    System.out.print("Input reservation's ID to be deleted: ");
+                    /*System.out.print("Input reservation's ID to be deleted: ");
                     int reservationIDToBeDeleted = Integer.parseInt(scanner.nextLine());
-                    reservationLogic.deleteReservationByID(egn, reservationIDToBeDeleted);
+                    reservationLogic.deleteReservationByID(egn, reservationIDToBeDeleted);*/
                     break;
                 case "4":
-                    reservationLogic.viewPreviousReservations(egn);
+                    //reservationLogic.viewPreviousReservations(egn);
                     break;
                 case "5":
                     running = false;
                     // Write back to the db
-                    database.writeToFile(database.getReservations());
+                    // database.writeToFile(database.getReservations());
+                    database.writeUsersToFile(database.getUsers());
                     break;
                 default:
                     System.out.println("ERROR choosing an option");
@@ -120,7 +166,7 @@ public class UserInterface {
         }
     }
 
-    private static void printMenu() {
+    private static void printUserMenu() {
         System.out.println();
         System.out.println("Select an option");
         System.out.println("----------------");
@@ -131,5 +177,37 @@ public class UserInterface {
         System.out.println("5. Exit");
         System.out.println("-------------------");
         System.out.print("Input: ");
+    }
+
+    private static void printAdminMenu() {
+        System.out.println();
+        System.out.println("Select an option");
+        System.out.println("----------------");
+        System.out.println("1. Create a user profile");
+        System.out.println("2. Update a user profile");
+        System.out.println("3. View a user profile");
+        System.out.println("4. Exit");
+        System.out.println("-------------------");
+        System.out.print("Input: ");
+    }
+
+    private static User createUserByAdmin() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+        System.out.print("EGN: ");
+        String egn = scanner.nextLine();
+        System.out.println("Card type: ");
+        System.out.println("0. No card");
+        System.out.println("1. Older than sixty card");
+        System.out.println("2. Family card");
+        CardType cardType = CardType.values()[Integer.parseInt(scanner.nextLine())];
+
+        return new User(name, egn, cardType);
+    }
+
+    private static void printAllUsers() {
+
     }
 }

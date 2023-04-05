@@ -1,8 +1,6 @@
 [
   {
     "reservationID": 1,
-    "personName": "E4i",
-    "personEGN": "234",
     "discountType": "NOT_SET",
     "ticketCount": 3,
     "ticketsPrices": [

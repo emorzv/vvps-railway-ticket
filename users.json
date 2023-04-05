@@ -1,0 +1,52 @@
+[
+  {
+    "userId": 0,
+    "name": "Veso",
+    "egn": "123",
+    "card": "NOT_SET",
+    "reservations": [
+      {
+        "reservationID": 0,
+        "discountType": "NOT_SET",
+        "ticketCount": 1,
+        "ticketsPrices": [
+          70.0
+        ],
+        "createdOn": 0
+      },
+      {
+        "reservationID": 0,
+        "discountType": "NOT_SET",
+        "ticketCount": 1,
+        "ticketsPrices": [
+          140.0
+        ],
+        "createdOn": 0
+      }
+    ]
+  },
+  {
+    "userId": 0,
+    "name": "Edshi",
+    "egn": "456",
+    "card": "FAMILY_CARD",
+    "reservations": [
+      {
+        "reservationID": 0,
+        "discountType": "NOT_SET",
+        "ticketCount": 1,
+        "ticketsPrices": [
+          70.0
+        ],
+        "createdOn": 0
+      }
+    ]
+  },
+  {
+    "userId": 1,
+    "name": "Edshee",
+    "egn": "12345",
+    "card": "FAMILY_CARD",
+    "reservations": []
+  }
+]
