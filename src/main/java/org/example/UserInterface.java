@@ -37,13 +37,12 @@ public class UserInterface {
         } else if (RoleType.ADMIN == role) {
             System.out.println("Welcome Admin!");
             System.out.println("-------------");
-            adminOptions(userLogic, railwayTicketer, database);
+            adminOptions(userLogic, database);
         }
     }
 
     private static void adminOptions(
             UserLogic userLogic,
-            RailwayTicketer railwayTicketer,
             Database database) {
         boolean running = true;
         String userInput;
