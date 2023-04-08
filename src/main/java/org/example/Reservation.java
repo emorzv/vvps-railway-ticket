@@ -1,6 +1,8 @@
 package org.example;
 
 
+import java.time.LocalDate;
+
 public class Reservation {
     private int reservationID;
     private CardType discountType;
@@ -15,6 +17,7 @@ public class Reservation {
         this.discountType = discountType;
         this.ticketCount = ticketCount;
         this.ticketsPrices = new double[ticketCount];
+        this.createdOn = LocalDate.now().toEpochDay();
     }
 
     public int getReservationID() {

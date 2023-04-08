@@ -6,39 +6,22 @@
     "card": "NOT_SET",
     "reservations": [
       {
-        "reservationID": 0,
+        "reservationID": 1,
         "discountType": "NOT_SET",
         "ticketCount": 1,
         "ticketsPrices": [
           70.0
         ],
-        "createdOn": 0
+        "createdOn": 19455
       },
       {
-        "reservationID": 0,
-        "discountType": "NOT_SET",
+        "reservationID": 2,
+        "discountType": "FAMILY_CARD",
         "ticketCount": 1,
         "ticketsPrices": [
-          140.0
+          133.0
         ],
-        "createdOn": 0
-      }
-    ]
-  },
-  {
-    "userId": 0,
-    "name": "Edshi",
-    "egn": "456",
-    "card": "FAMILY_CARD",
-    "reservations": [
-      {
-        "reservationID": 0,
-        "discountType": "NOT_SET",
-        "ticketCount": 1,
-        "ticketsPrices": [
-          70.0
-        ],
-        "createdOn": 0
+        "createdOn": 19455
       }
     ]
   },
@@ -47,6 +30,13 @@
     "name": "Edshee",
     "egn": "12345",
     "card": "FAMILY_CARD",
+    "reservations": []
+  },
+  {
+    "userId": 2,
+    "name": "Rizov",
+    "egn": "456",
+    "card": "NOT_SET",
     "reservations": []
   }
 ]
