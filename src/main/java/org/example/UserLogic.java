@@ -6,6 +6,7 @@ import java.util.List;
 
 public class UserLogic {
     private Database database;
+    private int lastId;
     private static final String ERROR_MESSAGE = "No users with this ID!";
 
     public UserLogic(Database database) {
@@ -39,7 +40,7 @@ public class UserLogic {
     public void updateUserCardType(int userId, CardType newCardType) {
         List<User> users = database.getUsers();
 
-        for (User user: users) {
+        for (User user : users) {
             if (user.getUserId() == userId) {
                 user.setCard(newCardType);
                 break;
@@ -59,11 +60,13 @@ public class UserLogic {
     public void addReservationToUser(String currentUserEgn, Reservation reservation) {
         for (User user : database.getUsers()) {
             if (user.getEgn().equals(currentUserEgn)) {
-                reservation.setReservationID(
-                        user.getReservations().
-                                get(user.getReservations().size() - 1).
-                                getReservationID() + 1);
-                user.getReservations().add(reservation);
+                if (!user.getReservations().isEmpty()) {
+                    this.lastId = user.getReservations().get(user.getReservations().size() - 1).getReservationID() + 1;
+                    reservation.setReservationID(this.lastId);
+                    user.getReservations().add(reservation);
+                } else {
+                    this.lastId = 0;
+                }
             }
         }
     }
@@ -81,6 +84,7 @@ public class UserLogic {
             }
         }
     }
+
     // Utility method to deleteReservationFromUser
     private Reservation getReservationById(User user, int reservationId) {
         List<Reservation> userRes = user.getReservations();
