@@ -2,6 +2,7 @@ package org.example;
 
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Reservation {
     private int reservationID;
@@ -64,6 +65,7 @@ public class Reservation {
         System.out.println("Reservation ID: " + this.getReservationID());
         System.out.println("Discount type: " + this.getDiscountType());
         System.out.println("Number of reserved tickets: " + this.getTicketCount());
+        System.out.println("Total price for the reservation: " + Arrays.toString(this.getTicketsPrices()));
         System.out.println("------------------------------------------------------");
     }
 }

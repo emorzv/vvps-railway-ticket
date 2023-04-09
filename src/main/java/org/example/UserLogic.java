@@ -42,10 +42,6 @@ public class UserLogic {
         for (User user: users) {
             if (user.getUserId() == userId) {
                 user.setCard(newCardType);
-
-                for (Reservation res : user.getReservations()) {
-                    res.setDiscountType(newCardType);
-                }
                 break;
             }
         }

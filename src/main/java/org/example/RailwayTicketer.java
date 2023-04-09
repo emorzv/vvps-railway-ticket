@@ -7,7 +7,7 @@ public class RailwayTicketer {
     private CardType cardType = CardType.NOT_SET;
     private boolean travelingWithChild = false;
     private boolean oneWayTicket = true;
-    private static final double FAKE_PRICE = 70.0;
+    private static final double INIT_PRICE = 70.0;
 
 
     public void setRushHour(boolean isRushHour) {
@@ -116,7 +116,8 @@ public class RailwayTicketer {
             }
             default -> System.out.println("unknown time");
         }
+        System.out.println("Initial price: " + INIT_PRICE);
 
-        return FAKE_PRICE;
+        return INIT_PRICE;
     }
 }

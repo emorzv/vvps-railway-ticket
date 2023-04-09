@@ -110,7 +110,7 @@ public class UserInterface {
                     CardType cardType = currentUser.getCard();
                     railwayTicketer.setAvailableCard(cardType);
 
-                    System.out.print("Traveling with a child (true/false): ");
+                    System.out.print("Traveling with a child under 16 (true/false): ");
                     boolean haveChild = Boolean.parseBoolean(scanner.nextLine());
                     railwayTicketer.setTravelingWithChild(haveChild);
 
@@ -149,6 +149,11 @@ public class UserInterface {
                     userLogic.viewPreviousReservationsForUser(egn);
                     break;
                 case "5":
+                    printDiscountType();
+                    userLogic.updateUserCardType(currentUser.getUserId(),
+                            CardType.values()[Integer.parseInt(scanner.nextLine())]);
+                    break;
+                case "6":
                     running = false;
                     // Write back to the db
                     database.writeUsersToFile(database.getUsers());
@@ -168,7 +173,8 @@ public class UserInterface {
         System.out.println("2. Update a reservation");
         System.out.println("3. Delete a reservation");
         System.out.println("4. See previous reservations");
-        System.out.println("5. Exit");
+        System.out.println("5. Update user's card type");
+        System.out.println("6. Exit");
         System.out.println("-------------------");
         System.out.print("Input: ");
     }
