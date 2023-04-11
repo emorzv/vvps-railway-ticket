@@ -110,13 +110,20 @@ public class UserInterface {
                     CardType cardType = currentUser.getCard();
                     railwayTicketer.setAvailableCard(cardType);
 
-                    System.out.print("Traveling with a child under 16 (true/false): ");
+                    System.out.print("Traveling with a child (true/false): ");
                     boolean haveChild = Boolean.parseBoolean(scanner.nextLine());
+                    // Patch so I can do the boundary cases
+                    if (haveChild) {
+                        System.out.print("Enter the age of the child: ");
+                        if (Integer.parseInt(scanner.nextLine()) < 16) {
+                            haveChild = false;
+                        }
+                    }
                     railwayTicketer.setTravelingWithChild(haveChild);
 
-                    System.out.print("One way ticket (true/false): ");
-                    boolean oneWayTicket = Boolean.parseBoolean(scanner.nextLine());
-                    railwayTicketer.setOneWayTicket(oneWayTicket);
+                    System.out.print("Two way ticket (true/false): ");
+                    boolean twoWayTicket = Boolean.parseBoolean(scanner.nextLine());
+                    railwayTicketer.setTwoWayTicket(twoWayTicket);
 
                     System.out.print("Person's ticket count: ");
                     int ticketCount = Integer.parseInt(scanner.nextLine());

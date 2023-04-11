@@ -62,11 +62,12 @@ public class UserLogic {
             if (user.getEgn().equals(currentUserEgn)) {
                 if (!user.getReservations().isEmpty()) {
                     this.lastId = user.getReservations().get(user.getReservations().size() - 1).getReservationID() + 1;
-                    reservation.setReservationID(this.lastId);
-                    user.getReservations().add(reservation);
                 } else {
                     this.lastId = 0;
                 }
+
+                reservation.setReservationID(this.lastId);
+                user.getReservations().add(reservation);
             }
         }
     }
@@ -128,7 +129,7 @@ public class UserLogic {
         }
 
         if (isEmpty) {
-            System.out.println(ERROR_MESSAGE);
+            System.out.println("No reservations for the given user");
         }
     }
 

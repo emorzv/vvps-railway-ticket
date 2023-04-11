@@ -6,8 +6,8 @@ public class RailwayTicketer {
     private boolean rushHour = false;
     private CardType cardType = CardType.NOT_SET;
     private boolean travelingWithChild = false;
-    private boolean oneWayTicket = true;
     private static final double INIT_PRICE = 70.0;
+    private boolean twoWayTicket = false;
 
 
     public void setRushHour(boolean isRushHour) {
@@ -34,12 +34,12 @@ public class RailwayTicketer {
         this.travelingWithChild = travelingWithChild;
     }
 
-    public void setOneWayTicket(boolean oneWayTicket) {
-        this.oneWayTicket = oneWayTicket;
+    public void setTwoWayTicket(boolean twoWayTicket) {
+        this.twoWayTicket = twoWayTicket;
     }
 
-    public boolean getOneWayTicket() {
-        return this.oneWayTicket;
+    public boolean getTwoWayTicket() {
+        return this.twoWayTicket;
     }
 
     public double calculateDiscountedPrice(double initialPriceBasedOnDistance) {
@@ -74,9 +74,9 @@ public class RailwayTicketer {
     }
 
     public double calculateTwoWayTickets(double initialPriceBasedOnDistance) {
-        if (getOneWayTicket())
-            return calculateDiscountedPrice(initialPriceBasedOnDistance);
-        return (2 * calculateDiscountedPrice(initialPriceBasedOnDistance));
+        if (this.twoWayTicket)
+            return 2 * calculateDiscountedPrice(initialPriceBasedOnDistance);
+        return calculateDiscountedPrice(initialPriceBasedOnDistance);
     }
 
     public double findAvailableTrainByPriceAndRoute() {

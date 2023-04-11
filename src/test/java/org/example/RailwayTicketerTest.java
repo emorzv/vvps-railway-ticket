@@ -12,9 +12,8 @@ class RailwayTicketerTest {
     void calculatedDiscountPriceShouldBe50() {
         RailwayTicketer railwayTicketer = new RailwayTicketer();
         railwayTicketer.setAvailableCard(CardType.FAMILY_CARD);
-        railwayTicketer.setOneWayTicket(true);
+        railwayTicketer.setTwoWayTicket(false);
         railwayTicketer.setTravelingWithChild(true);
-        railwayTicketer.setOneWayTicket(true);
 
         Assertions.assertEquals(50, railwayTicketer.calculateTwoWayTickets(100));
     }
@@ -26,9 +25,8 @@ class RailwayTicketerTest {
     void calculatedDiscountPriceShouldBe66() {
         RailwayTicketer railwayTicketer = new RailwayTicketer();
         railwayTicketer.setAvailableCard(CardType.OLDER_THAN_SIXTY_CARD);
-        railwayTicketer.setOneWayTicket(true);
+        railwayTicketer.setTwoWayTicket(false);
         railwayTicketer.setTravelingWithChild(true);
-        railwayTicketer.setOneWayTicket(true);
 
         Assertions.assertEquals(66, railwayTicketer.calculateTwoWayTickets(100));
     }
@@ -40,18 +38,17 @@ class RailwayTicketerTest {
     void calculatedDiscountPriceShouldBe90() {
         RailwayTicketer railwayTicketer = new RailwayTicketer();
         railwayTicketer.setAvailableCard(CardType.FAMILY_CARD);
-        railwayTicketer.setOneWayTicket(true);
+        railwayTicketer.setTwoWayTicket(false);
         railwayTicketer.setTravelingWithChild(false);
-        railwayTicketer.setOneWayTicket(true);
 
         Assertions.assertEquals(90, railwayTicketer.calculateTwoWayTickets(100));
     }
 
 
-    private RailwayTicketer setUpHelperMethod(boolean oneWayTicket, boolean travelWithChild, boolean rushHour){
+    private RailwayTicketer setUpHelperMethod(boolean twoWayTicket, boolean travelWithChild, boolean rushHour){
         RailwayTicketer railwayTicketer = new RailwayTicketer();
         railwayTicketer.setAvailableCard(CardType.NOT_SET);
-        railwayTicketer.setOneWayTicket(oneWayTicket);
+        railwayTicketer.setTwoWayTicket(twoWayTicket);
         railwayTicketer.setTravelingWithChild(travelWithChild);
         railwayTicketer.setRushHour(rushHour);
         return railwayTicketer;
@@ -61,7 +58,7 @@ class RailwayTicketerTest {
             "The calculated discount price should equal to 95, " +
                     "without a card rush hour discount only")
     void calculatedDiscountPriceShouldBe95() {
-        Assertions.assertEquals(95, setUpHelperMethod(true, true, false).calculateTwoWayTickets(100));
+        Assertions.assertEquals(95, setUpHelperMethod(false, true, false).calculateTwoWayTickets(100));
     }
 
     @Test
@@ -69,7 +66,7 @@ class RailwayTicketerTest {
             "The calculated discount price should equal to 100, " +
                     "without a card and no rush hour discount")
     void calculatedDiscountPriceShouldBe100() {
-        Assertions.assertEquals(100, setUpHelperMethod(true, false, true).calculateTwoWayTickets(100));
+        Assertions.assertEquals(100, setUpHelperMethod(false, false, true).calculateTwoWayTickets(100));
     }
 
     @Test
@@ -77,7 +74,7 @@ class RailwayTicketerTest {
             "The calculated discount price should equal to 200, " +
                     "without a card and no rush hour discount, but two way ticket")
     void calculatedDiscountPriceShouldBe200() {
-        Assertions.assertEquals(200, setUpHelperMethod(false, false, true).calculateTwoWayTickets(100));
+        Assertions.assertEquals(200, setUpHelperMethod(true, false, true).calculateTwoWayTickets(100));
     }
 
 }

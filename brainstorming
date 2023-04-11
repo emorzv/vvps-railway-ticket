@@ -1,2 +1,1 @@
-[ ] handle edge cases on the input side of things
-[ ] Fix updating the reservations' ids
+[ ] make the years of the child an input so the boundaries can be tested

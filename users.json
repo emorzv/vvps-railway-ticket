@@ -38,5 +38,12 @@
     "egn": "456",
     "card": "NOT_SET",
     "reservations": []
+  },
+  {
+    "userId": 3,
+    "name": "asdf",
+    "egn": "1234",
+    "card": "NOT_SET",
+    "reservations": []
   }
 ]
